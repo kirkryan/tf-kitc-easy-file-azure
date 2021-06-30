@@ -77,14 +77,6 @@ variable "cloudmanager_admin_password" {
   sensitive = true
 }
 
-variable "tfc_organization" {
-  type = string
-}
-
-variable "tfc_workspace" {
-  type = string
-}
-
 resource "azurerm_resource_group" "rg_cloudmanager_connector" {
   name     = "rg_cloudmanager_connector"
   location = var.cloudmanager_location
