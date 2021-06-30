@@ -9,6 +9,13 @@ terraform {
       version = "=2.46.0"
     }
   }
+
+  backend "remote" {
+    organization = "Kirk" # <--- Change this to your organization name
+    workspaces {
+      name = "tf-kitc-easy-file-azure" # <--- Change this to your workspace name
+    }
+  }
 }
 
 provider "netapp-cloudmanager" {
@@ -58,6 +65,24 @@ variable "azure_client_secret" {
 variable "azure_tenant_id" {
   type      = string
   sensitive = true
+}
+
+variable "cloudmanager_admin_username" {
+  type      = string
+  sensitive = true
+}
+
+variable "cloudmanager_admin_password" {
+  type      = string
+  sensitive = true
+}
+
+variable "tfc_organization" {
+  type = string
+}
+
+variable "tfc_workspace" {
+  type = string
 }
 
 resource "azurerm_resource_group" "rg_cloudmanager_connector" {
@@ -203,6 +228,6 @@ resource "netapp-cloudmanager_connector_azure" "cl-occm-azure" {
   network_security_group_name = azurerm_network_security_group.sg_cloudmanager.name
   associate_public_ip_address = true
   account_id                  = var.cloudmanager_account_id
-  admin_password              = "P@ssword123456"
-  admin_username              = "vmadmin"
+  admin_password              = var.cloudmanager_admin_password
+  admin_username              = var.cloudmanager_admin_username
 }
