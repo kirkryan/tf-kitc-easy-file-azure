@@ -11,6 +11,7 @@ terraform {
   }
 
   backend "remote" {
+    hostname = "app.terraform.io"
     organization = "Kirk" # <--- Change this to your organization name
     workspaces {
       name = "tf-kitc-easy-file-azure" # <--- Change this to your workspace name
